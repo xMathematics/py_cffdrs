@@ -1,1 +1,1 @@
-## 计算加拿大森林火险气候指数系统
+## Canadian Forest Fire Danger Rating System (CFFDRS)
