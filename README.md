@@ -1,1 +1,1 @@
-[README](py_cffdrs/edit/main/README_ZH.md)
+[README](py_cffdrs/README_ZH.md)
