@@ -1,2 +1,1 @@
-
-    * <a href="(https://github.com/xMathematics/py_cffdrs/new/main?filename=README.md)">myLib/README.md</a>
+[README](py_cffdrs/edit/main/README_ZH.md)
