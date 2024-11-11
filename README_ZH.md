@@ -18,9 +18,10 @@
 
 <p>计算FFMC需提供以下参数：
 <b><font size=3 color=red>
-<p>ffmc_yda:   The Fine Fuel Moisture Code from previous iteration
+<p>ffmc_yda:   The Fine Fuel Moisture Code from previous iteration 上一次迭代的FFMC，默认启动值是85
 <p>temp:   Temperature (centigrade) 温度
 <p>rh:   Relative Humidity (%) 相对湿度
 <p>prec:   Precipitation (mm) 降雨量
 <p>ws:   Wind speed (km/h) 风速
 </font></b>
+
