@@ -1,3 +1,5 @@
+import pandas as pd
+
 from calc_function.dcCalc import dc
 from calc_function.dmcCalc import dmc
 from calc_function.buiCalc import buiCalc
@@ -13,4 +15,6 @@ from calc_function.fwiCalc import fwiCalc
 
 
 if __name__ == '__main__':
-    dc = dc(dc_yda, temp, rh, prec, lat, mon)
+    data = pd.read_csv("data/data1.csv")
+
+    print(data)
