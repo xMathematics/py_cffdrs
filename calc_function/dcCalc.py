@@ -1,5 +1,5 @@
 from math import exp, log, sqrt
-
+import numpy as np
 
 def dc(dc_yda, temp, rh, prec, lat, mon, lat_adjust=True):
     """
@@ -52,7 +52,7 @@ def dc(dc_yda, temp, rh, prec, lat, mon, lat_adjust=True):
         raise ValueError(f'Invalid rh: {rh}')
     if prec < 0:
         raise ValueError(f'Invalid prec: {prec}')
-    if mon < 1 or mon > 12 or not isinstance(mon, int):
+    if mon < 1 or mon > 12 or not isinstance(mon, np.int32):
         raise ValueError(f'Invalid mon: {mon}')
     # Day length factor for DC Calculations
     # 20N: North of 20 degrees N
@@ -76,7 +76,7 @@ def dc(dc_yda, temp, rh, prec, lat, mon, lat_adjust=True):
     # Eq. 19
     smi = 800 * exp(-1 * dc_yda / 400)
     # Alteration to Eq. 21
-    dr0 = dc_yda - 400 * log(1 + 3.937 * rw / smi)
+    dr0 = dc_yda - 400 * np.log(1 + 3.937 * rw / smi)
     dr0 = 0 if (dr0 < 0) else dr0
     # if precip is less than 2.8 then use yesterday's DC
     dr = dc_yda if (prec <= 2.8) else dr0

@@ -8,7 +8,7 @@ from calc_function.buiCalc import buiCalc
 from calc_function.ISIcalc import ISIcalc
 from calc_function.ffmcCalc import ffmcCalc
 from calc_function.fwiCalc import fwiCalc
-
+from calc2.fwi import calc_dmc
 
 
 
@@ -18,14 +18,37 @@ from calc_function.fwiCalc import fwiCalc
 
 if __name__ == '__main__':
     data = pd.read_csv("data/data1.csv")
-    temp = data['平均气温']
-    rh = data['平均相对湿度']
-    prec = data['降雨量']
-    mon = data['月份']
-    dc_yda = 0
-    dc_data = np.zeros(0)
+    temp = data['平均气温'].values
+    rhs = data['平均相对湿度'].values
+    prec = data['降雨量'].values
+    ws = data['平均风速'].values
+    mon = data['月份'].values.astype(dtype=np.int32)
+    # dmc_old = 0.00
+    dc_yda = 10
+    dmc_yda = 10
+    ffmc_yda = 13
+
+    dc_data = np.empty(len(data))
+    dmc_data = np.empty(len(data))
+    ffmc_data = np.empty(len(data))
+
+
+
 
     for i in range(len(data)):
-        dc_yda = dc(dc_yda=0, temp=temp, rh=rh, prec=prec, mon=mon, lat_adjust=false)
+        # dmc_old = calc_dmc(temps=temp[i], rhs=rhs[i], rains=prec[i], dmc_olds=dmc_old, month=mon[i])
+        dc_yda = dc(dc_yda=dc_yda, temp=temp[i], rh=rhs[i], prec=prec[i],lat=40, mon=mon[i], lat_adjust=True)
+        dmc_yda = dc(dc_yda=dmc_yda, temp=temp[i], rh=rhs[i], prec=prec[i],lat=40, mon=mon[i], lat_adjust=True)
+        # np.append(dc_data, dmc_old)
         np.append(dc_data, dc_yda)
-    print(dc_data)
+        np.append(dmc_data, dmc_yda)
+
+        ffmc_yda = ffmcCalc(ffmc_yda=ffmc_yda, temp=temp[i], rh=rhs[i], ws=ws[i], prec=prec[i])
+        np.append(ffmc_data, ffmc_yda)
+    bui = buiCalc(dmc_data, dc_data)
+    isi = ISIcalc(ffmc_data, ws=ws)
+    fwi = fwiCalc(isi, bui)
+
+    data['fwi'] = fwi
+    # data.to_csv('fwi_data.csv')
+    print(data)
