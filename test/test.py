@@ -28,9 +28,9 @@ if __name__ == '__main__':
     dmc_yda = 0
     ffmc_yda = 13
 
-    dc_data = np.empty(len(data))
-    dmc_data = np.empty(len(data))
-    ffmc_data = np.empty(len(data))
+    dc_data = np.empty(0)
+    dmc_data = np.empty(0)
+    ffmc_data = np.empty(0)
 
 
 
@@ -38,17 +38,17 @@ if __name__ == '__main__':
     for i in range(len(data)):
         # dmc_old = calc_dmc(temps=temp[i], rhs=rhs[i], rains=prec[i], dmc_olds=dmc_old, month=mon[i])
         dc_yda = dc(dc_yda=dc_yda, temp=temp[i], rh=rhs[i], prec=prec[i],lat=40, mon=mon[i], lat_adjust=True)
-        dmc_yda = dc(dc_yda=dmc_yda, temp=temp[i], rh=rhs[i], prec=prec[i],lat=40, mon=mon[i], lat_adjust=True)
+        dmc_yda = dmc(dmc_yda=dmc_yda, temp=temp[i], rh=rhs[i], prec=prec[i],lat=40, mon=mon[i], lat_adjust=True)
         # np.append(dc_data, dmc_old)
-        np.append(dc_data, dc_yda)
-        np.append(dmc_data, dmc_yda)
+        dc_data = np.append(dc_data, dc_yda)
+        dmc_data = np.append(dmc_data, dmc_yda)
 
         ffmc_yda = ffmcCalc(ffmc_yda=ffmc_yda, temp=temp[i], rh=rhs[i], ws=ws[i], prec=prec[i])
-        np.append(ffmc_data, ffmc_yda)
+        ffmc_data = np.append(ffmc_data, ffmc_yda)
     bui = buiCalc(dmc_data, dc_data)
     isi = ISIcalc(ffmc_data, ws=ws)
     fwi = fwiCalc(isi, bui)
 
     data['fwi'] = fwi
-    # data.to_csv('fwi_data.csv')
+    data.to_csv('fwi_data.csv')
     print(data)

@@ -1,5 +1,6 @@
 from math import exp, log, sqrt
 
+import numpy as np
 
 
 def dmc(dmc_yda, temp, rh, prec, lat, mon, lat_adjust=True):
@@ -53,7 +54,7 @@ def dmc(dmc_yda, temp, rh, prec, lat, mon, lat_adjust=True):
         raise ValueError(f'Invalid rh: {rh}')
     if prec < 0:
         raise ValueError(f'Invalid prec: {prec}')
-    if mon < 1 or mon > 12 or not isinstance(mon, int):
+    if mon < 1 or mon > 12 or not isinstance(mon, np.int32):
         raise ValueError(f'Invalid mon: {mon}')
     # Reference latitude for DMC day length adjustment
     # 46N: Canadian standard, latitude >= 30N   (Van Wagner 1987)
