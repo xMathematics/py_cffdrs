@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from sympy import false
 
 from calc_function.dcCalc import dc
 from calc_function.dmcCalc import dmc
@@ -24,9 +23,9 @@ if __name__ == '__main__':
     ws = data['平均风速'].values
     mon = data['月份'].values.astype(dtype=np.int32)
     # dmc_old = 0.00
-    dc_yda = 0.5
-    dmc_yda = 0.5
-    ffmc_yda = 13
+    dc_yda = 0
+    dmc_yda = 0
+    ffmc_yda = 85
 
     dc_data = np.empty(0)
     dmc_data = np.empty(0)
@@ -50,5 +49,5 @@ if __name__ == '__main__':
     fwi = fwiCalc(isi, bui)
 
     data['fwi'] = fwi
-    data.to_csv('fwi_data.csv')
+    # data.to_csv('fwi_data.csv')
     print(data)
