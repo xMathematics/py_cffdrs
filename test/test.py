@@ -24,8 +24,8 @@ if __name__ == '__main__':
     ws = data['平均风速'].values
     mon = data['月份'].values.astype(dtype=np.int32)
     # dmc_old = 0.00
-    dc_yda = 0
-    dmc_yda = 0
+    dc_yda = 0.5
+    dmc_yda = 0.5
     ffmc_yda = 13
 
     dc_data = np.empty(0)
